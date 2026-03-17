@@ -52,7 +52,7 @@ h1 {
   font-weight: normal;
   margin-bottom: 10px;
   color: var(--app-text);
-  text-align: left;
+  text-align: center; /* <-- Меняем на центр */
 }
 
 h3 {
