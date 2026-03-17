@@ -1,17 +1,32 @@
 /* client/src/components/ImageUploader.css */
 
-/* ... (стили .preview-container, .preview-image, .zoom-icon оставляем без изменений) ... */
-
 .preview-container {
-  width: 100%;
-  height: 240px;
+  width: 100%;           /* Занимает всю доступную ширину карточки */
+  max-width: 100%;       /* Не шире родителя */
+  height: 240px;         /* Фиксированная высота */
   margin-bottom: 12px;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: hidden;      /* Обрезает всё, что вылезает за границы */
   border: 1px solid var(--border-color);
   background-color: var(--secondary-bg);
   position: relative;
   cursor: zoom-in;
+  
+  /* Важно: предотвращаем расширение контейнера из-за картинки */
+  flex-shrink: 0; 
+  box-sizing: border-box;
+}
+
+.preview-image {
+  width: 100%;           /* Растягиваем на всю ширину контейнера */
+  height: 100%;          /* Растягиваем на всю высоту контейнера */
+  object-fit: cover;     /* Заполняет блок, обрезая лишнее (без полей) */
+  object-position: center;
+  display: block;
+  
+  /* Гарантируем, что картинка не выйдет за пределы */
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .zoom-icon {
@@ -25,56 +40,49 @@
   font-size: 12px;
   pointer-events: none;
   opacity: 0.8;
+  z-index: 10;
 }
 
-/* --- ИСПРАВЛЕННЫЕ СТИЛИ МОДАЛЬНОГО ОКНА --- */
-
+/* Остальные стили (модалка и т.д.) оставляем как были */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9); /* Чуть темнее фон */
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px; /* Отступы от краев экрана */
+  padding: 15px;
   backdrop-filter: blur(5px);
   animation: fadeIn 0.2s ease-out;
-  overflow: hidden; /* Запрещаем прокрутку самому оверлею */
+  overflow: hidden;
 }
 
 .modal-content {
   background-color: var(--card-bg);
   padding: 10px;
   border-radius: 16px;
-  
-  /* Ограничиваем размеры контейнера, чтобы он не вылезал за экран */
-  max-width: 95vw;  /* 95% от ширины экрана */
-  max-height: 85vh; /* 85% от высоты экрана */
-  
+  max-width: 95vw;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   position: relative;
   animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  
-  /* Важно: позволяем контенту сжиматься, но не растягиваться больше нормы */
   width: auto;
   height: auto;
 }
 
 .modal-image {
-  /* Ключевые свойства для предотвращения вылезания */
   max-width: 100%;
-  max-height: 75vh; /* Оставляем место под кнопку */
+  max-height: 75vh;
   width: auto;
   height: auto;
-  
-  object-fit: contain; /* Вписываем картинку целиком, не обрезая */
+  object-fit: contain;
   display: block;
   border-radius: 8px;
 }
@@ -90,10 +98,9 @@
   cursor: pointer;
   width: auto;
   font-size: 14px;
-  flex-shrink: 0; /* Кнопка не должна сжиматься */
+  flex-shrink: 0;
 }
 
-/* Анимации */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
