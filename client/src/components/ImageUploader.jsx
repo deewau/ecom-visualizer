@@ -1,5 +1,6 @@
 // client/src/components/ImageUploader.jsx
 import React, { useRef, useState } from 'react';
+import './ImageUploader.css'; // Подключаем отдельный файл стилей для этого компонента
 
 const ImageUploader = ({ onImageSelect }) => {
   const fileInputRef = useRef(null);
@@ -8,10 +9,8 @@ const ImageUploader = ({ onImageSelect }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Передаем файл родителю (в App.jsx)
       onImageSelect(file);
       
-      // Создаем URL для предпросмотра
       const objectUrl = URL.createObjectURL(file);
       setPreviewUrl(objectUrl);
     }
@@ -22,24 +21,12 @@ const ImageUploader = ({ onImageSelect }) => {
       <h3>1. Загрузи товар</h3>
       <p className="hint">Фото на белом фоне работает лучше всего</p>
       
-      {/* Блок предпросмотра: показывается, если есть previewUrl */}
       {previewUrl && (
-        <div style={{ 
-          marginBottom: '12px', 
-          textAlign: 'center',
-          overflow: 'hidden',
-          borderRadius: '8px',
-          border: '1px solid var(--border-color)'
-        }}>
+        <div className="preview-container">
           <img 
             src={previewUrl} 
             alt="Preview" 
-            style={{ 
-              maxWidth: '100%', 
-              maxHeight: '200px', 
-              display: 'block',
-              margin: '0 auto'
-            }} 
+            className="preview-image"
           />
         </div>
       )}

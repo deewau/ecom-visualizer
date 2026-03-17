@@ -1,0 +1,20 @@
+/* client/src/components/ImageUploader.css */
+
+.preview-container {
+  width: 100%;
+  height: 240px; /* Фиксированная высота для аккуратности */
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden; /* Обрезаем всё, что вылезает за границы */
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-bg);
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ГЛАВНОЕ: заполняет блок, обрезая лишнее, без полей */
+  object-position: center; /* Центрируем изображение внутри блока */
+  display: block;
+}
