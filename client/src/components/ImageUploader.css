@@ -1,20 +1,91 @@
 /* client/src/components/ImageUploader.css */
 
+/* ... (предыдущие стили .preview-container и .preview-image остаются без изменений) ... */
+
 .preview-container {
   width: 100%;
-  height: 240px; /* Фиксированная высота для аккуратности */
+  height: 240px;
   margin-bottom: 12px;
   border-radius: 12px;
-  overflow: hidden; /* Обрезаем всё, что вылезает за границы */
+  overflow: hidden;
   border: 1px solid var(--border-color);
   background-color: var(--secondary-bg);
   position: relative;
+  cursor: zoom-in; /* Курсор показывает, что можно нажать */
 }
 
-.preview-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* ГЛАВНОЕ: заполняет блок, обрезая лишнее, без полей */
-  object-position: center; /* Центрируем изображение внутри блока */
+.zoom-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none; /* Чтобы клик проходил сквозь иконку на контейнер */
+  opacity: 0.8;
+}
+
+/* Стили Модального Окна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85); /* Сильное затемнение фона */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(5px); /* Размытие фона для красоты */
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  padding: 12px;
+  border-radius: 16px;
+  max-width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  position: relative;
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+  object-fit: contain;
   display: block;
+}
+
+.close-btn {
+  margin-top: 12px;
+  background-color: var(--secondary-bg);
+  color: var(--app-text);
+  border: none;
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: auto;
+  font-size: 14px;
+}
+
+/* Анимации появления */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
