@@ -1,153 +1,201 @@
 /* client/src/App.css */
 
-/* Используем переменные темы Telegram для всего приложения */
+/* --- ПАЛИТРА ДЛЯ СВЕТЛОЙ ТЕМЫ (по умолчанию) --- */
+:root {
+  --app-bg: #FDFCF8;          /* Светлый кремовый фон */
+  --app-text: #4A4A4A;        /* Темно-серый текст */
+  --card-bg: #FFFFFF;         /* Белые карточки */
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  --accent-color: #6B8E23;    /* Оливково-зеленый (как растения) */
+  --accent-text: #FFFFFF;
+  --hint-color: #9CA3AF;      /* Светло-серый подсказки */
+  --border-color: #E5E7EB;
+  --secondary-bg: #F3F4F6;
+}
+
+/* --- ПАЛИТРА ДЛЯ ТЕМНОЙ ТЕМЫ (автоматически при включении темной темы в ОС/Telegram) --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #1E1B18;        /* Темный шоколадный фон (как на скриншоте 1) */
+    --app-text: #E5E5E5;      /* Светлый текст */
+    --card-bg: #2C2520;       /* Карточки чуть светлее фона */
+    --card-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    --accent-color: #8FBC8F;  /* Мягкий зеленый */
+    --accent-text: #1E1B18;
+    --hint-color: #9CA3AF;
+    --border-color: #4B5563;
+    --secondary-bg: #3D342B;
+  }
+}
+
+/* Применяем переменные ко всему приложению */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  
-  /* Основные цвета темы */
-  background-color: var(--tg-theme-bg-color, #ffffff);
-  color: var(--tg-theme-text-color, #000000);
-  
-  /* Плавный переход при смене темы */
-  transition: background-color 0.3s, color 0.3s;
+  font-family: 'Georgia', 'Times New Roman', serif; /* Шрифт с засечками для стиля "журнал" */
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .app-container {
-  padding: 16px;
+  padding: 20px;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 h1 {
-  text-align: center;
-  color: var(--tg-theme-text-color, #000000);
-  margin-bottom: 8px;
+  font-family: 'Georgia', serif;
+  font-size: 32px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: var(--app-text);
+  text-align: left;
 }
 
 h3 {
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+  font-weight: normal;
   margin-top: 0;
-  font-size: 16px;
-  color: var(--tg-theme-hint-color, #707579); /* Цвет заголовков чуть мягче */
+  margin-bottom: 12px;
+  color: var(--app-text);
+  opacity: 0.9;
 }
 
 /* Карточки компонентов */
 .component-card {
-  /* Вторичный цвет фона (обычно чуть темнее/светлее основного) */
-  background-color: var(--tg-theme-secondary-bg-color, #f4f4f5);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: background-color 0.3s;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.05); /* Легкая рамка для темной темы */
 }
 
 .hint {
-  font-size: 12px;
-  color: var(--tg-theme-hint-color, #999999);
-  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--hint-color);
+  margin-bottom: 16px;
+  font-style: italic;
 }
 
 /* Кнопки */
 button {
-  /* Цвет основной кнопки берется из темы Телеграма */
-  background-color: var(--tg-theme-button-color, #3390ec);
-  color: var(--tg-theme-button-text-color, #ffffff);
+  background-color: var(--accent-color);
+  color: var(--accent-text);
   border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-family: 'Helvetica Neue', sans-serif; /* Кнопки более современные */
+  font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
   width: 100%;
-  font-size: 16px;
-  transition: opacity 0.2s, background-color 0.3s;
+  transition: transform 0.1s, opacity 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-button:hover {
-  opacity: 0.9;
+button:active {
+  transform: scale(0.98);
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
 /* Сетка выбора контекста */
 .options-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 12px;
 }
 
 .option-card {
-  /* Фон карточки опции - основной цвет фона темы */
-  background-color: var(--tg-theme-bg-color, #ffffff);
-  padding: 10px;
-  border-radius: 8px;
+  background-color: var(--secondary-bg);
+  padding: 12px;
+  border-radius: 12px;
   text-align: center;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: all 0.2s;
-  color: var(--tg-theme-text-color, #000000);
+  transition: all 0.3s ease;
+  color: var(--app-text);
+}
+
+.option-card:hover {
+  background-color: var(--card-bg);
 }
 
 .option-card.active {
-  /* Рамка активной карточки - цвет кнопки темы */
-  border-color: var(--tg-theme-button-color, #3390ec);
-  /* Легкий фон цвета кнопки */
-  background-color: rgba(51, 144, 236, 0.1); 
+  border-color: var(--accent-color);
+  background-color: var(--card-bg);
+  box-shadow: 0 0 0 2px var(--accent-color); /* Эффект свечения */
 }
 
 .option-card .icon {
-  font-size: 20px;
+  font-size: 24px;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .option-card .label {
+  font-family: 'Georgia', serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
   margin: 4px 0;
   display: block;
 }
 
 .option-card .desc {
-  font-size: 10px;
-  color: var(--tg-theme-hint-color, #999999);
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 11px;
+  color: var(--hint-color);
   display: block;
+  line-height: 1.3;
 }
 
 /* Поле ввода текста */
 textarea {
   width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  /* Цвет границы - цвет_hint или вторичный текст */
-  border: 1px solid var(--tg-theme-hint-color, #ccc);
-  background-color: var(--tg-theme-bg-color, #fff);
-  color: var(--tg-theme-text-color, #000);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-bg);
+  color: var(--app-text);
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 14px;
   resize: vertical;
+  transition: border-color 0.3s;
 }
 
 textarea:focus {
   outline: none;
-  border-color: var(--tg-theme-button-color, #3390ec);
+  border-color: var(--accent-color);
+  background-color: var(--card-bg);
 }
 
 /* Результат */
 .result-image {
   width: 100%;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  background-color: var(--tg-theme-secondary-bg-color, #eee);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background-color: var(--secondary-bg);
+  box-shadow: var(--card-shadow);
 }
 
 .download-btn {
-  /* Вторичная кнопка (например, серая в светлой теме) */
-  background-color: var(--tg-theme-secondary-bg-color, #eeeeee);
-  color: var(--tg-theme-text-color, #000000);
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  box-shadow: none;
+}
+
+.download-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
